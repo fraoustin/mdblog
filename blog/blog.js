@@ -41,19 +41,35 @@ function loadMd(fs, path){
   document.getElementById('primary').innerHTML = mdToHtml(readFile(fs, path, "Oups ..."));
 }
 
-function setHeader(fs){
-  var headerPath = '_header.md';
+function setSpecDiv(fs, name){
+  var namePath = '_' + name + '.md';
   var find = false;
   fs.rootUrl.split('/').forEach(elt => {
     if (find == false) {
-      var htmlHeader = mdToHtml(readFile(fs, headerPath)) 
+      var htmlHeader = mdToHtml(readFile(fs, namePath)) 
       if (htmlHeader.length != 0) {
-        document.getElementById('header').innerHTML = mdToHtml(readFile(fs, '../_header.md'));
+        document.getElementById(name).innerHTML = mdToHtml(readFile(fs, namePath));
         find = true;
       }
     }
-    headerPath = '../' + headerPath;
+    namePath = '../' + namePath;
   });
+}
+
+function setHeader(fs){
+  setSpecDiv(fs, 'header');
+}
+
+function setFooter(fs){
+  setSpecDiv(fs, 'footer');
+}
+
+function hasChild(parent, child, add){
+  document.querySelectorAll(parent).forEach(elt => {
+    if (elt.querySelectorAll(child).length > 0){
+      elt.classList.add(add)
+    }
+  })
 }
 
 /* load page */
@@ -77,6 +93,12 @@ console.log('mode   :', mode);
 console.time('setHeader');
 setHeader(fs);
 console.timeEnd('setHeader');
+console.time('setFooter');
+setFooter(fs);
+console.timeEnd('setFooter');
 console.time('loadMd');
 loadMd(fs, path);
 console.timeEnd('loadMd');
+
+// manage no-style of list with checkbox
+hasChild("li", "input[type=checkbox]", "nostyle");
