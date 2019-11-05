@@ -76,11 +76,8 @@ run image mytodotxt
 
 - use nginx-alpine
 - search global
-- ihm and css mardown
 - aera edit online (login, edit)
-- add highlight.js for aera code
 - responsive ihm
 - add in mardonw
     - tag
-    - aera warning info ...
     - txt2img

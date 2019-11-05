@@ -1,5 +1,26 @@
 console.log("blog");
 
+
+
+// Set options
+// `highlight` example uses `highlight.js`
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  },
+  pedantic: false,
+  gfm: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+});
+
+
+
+
 function params(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -82,13 +103,18 @@ var mode = "edit";
 if (url.indexOf("/edit/") == -1) {
   mode = "view";
 };
+var urlView = url;
+var urlEdit = url;
+
 
 console.log('globale variable');
-console.log('url    :', url);
-console.log('path   :', path)
-console.log('mdfile :', mdfile);
-console.log('fs     :', fs);
-console.log('mode   :', mode);
+console.log('url     :', url);
+console.log('urlView :', urlView);
+console.log('urlEdit :', urlEdit);
+console.log('path    :', path)
+console.log('mdfile  :', mdfile);
+console.log('mode    :', mode);
+console.log('fs      :', fs);
 
 console.time('setHeader');
 setHeader(fs);
@@ -102,3 +128,7 @@ console.timeEnd('loadMd');
 
 // manage no-style of list with checkbox
 hasChild("li", "input[type=checkbox]", "nostyle");
+// manage admonition
+hasChild("pre", "code.language-error", "error");
+hasChild("pre", "code.language-warning", "warning");
+hasChild("pre", "code.language-note", "note");
