@@ -36,6 +36,31 @@ you use http://localhost/ for access ihm
 
 It is necessary to check authorization on localpath (read and write)
 
+You can use in your text (write with markdown)
+
+- add tag 
+```
+    ![tag](name of tag)
+```
+- add category  
+```
+    ![category](name of category)
+```
+- admonition
+```
+    ```note|warning|error
+    text
+    ```
+```
+
+
+You can change
+
+- header by _header.md (in your localpath)
+- footer by _footer.md (in your localpath)
+- sidebar by _sidebar.md (in your localpath)
+
+
 ## Usage by Dockerfile
 
 Sample of Dockerfile
@@ -71,6 +96,7 @@ run image mytodotxt
 - wedav.js on https://github.com/aslakhellesoy/webdavjs
 - icon from https://feathericons.com/
 - marked https://github.com/markedjs/marked
+- editor https://github.com/lepture/editor
 
 ## Feature
 
@@ -79,5 +105,4 @@ run image mytodotxt
 - aera edit online (login, edit)
 - responsive ihm
 - add in mardonw
-    - tag
     - txt2img

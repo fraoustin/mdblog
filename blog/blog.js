@@ -1,6 +1,25 @@
 console.log("blog");
 
+var templateBlog = `# Title
+[tag](Name Of Tag)
+[category](Name Of Category)
 
+Your text
+`;
+
+function isDate(value) {
+  return (value && typeof value == 'object' && toString.call(value) == '[object Date]') || false;
+};
+
+function toIsoDate(dt) {
+  if (!isDate(dt)) dt = new Date();
+  var zeropad = function(num, len) { 
+    var output = num.toString();
+    while (output.length < len) output = '0' + output;
+    return output;
+  }
+  return dt.getFullYear() + zeropad(dt.getMonth() + 1, 2) + zeropad(dt.getDate(), 2)+ zeropad(dt.getHours(), 2)+ zeropad(dt.getMinutes(), 2)+ zeropad(dt.getSeconds(), 2);
+};
 
 // Set options
 // `highlight` example uses `highlight.js`
@@ -8,16 +27,14 @@ marked.setOptions({
   renderer: new marked.Renderer(),
   highlight: function(code) {
     return hljs.highlightAuto(code).value;
-  },
-  pedantic: false,
-  gfm: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
+  }
 });
 
+function encodeData(data) {
+  return Object.keys(data).map(function(key) {
+      return [key, data[key]].map(encodeURIComponent).join("=");
+  }).join("&");
+}
 
 function params(param) {
 	var vars = {};
@@ -57,8 +74,17 @@ function mdToHtml(txt){
 }
 
 function loadMd(fs, path){
+  console.time('loadMd');
   document.getElementById('primary').innerHTML = mdToHtml(readFile(fs, path, "Oups ..."));
+  console.timeEnd('loadMd');
 }
+
+function loadMdEditor(fs, path){
+  console.time('loadMdEditor');
+  document.querySelectorAll("#editor textarea")[0].value = readFile(fs, path, templateBlog);
+  console.timeEnd('loadMdEditor');
+}
+
 
 function setSpecDiv(fs, name){
   var namePath = '_' + name + '.md';
@@ -77,18 +103,24 @@ function setSpecDiv(fs, name){
 }
 
 function setHeader(fs){
+  console.time('setHeader');
   setSpecDiv(fs, 'header');
+  console.timeEnd('setHeader');
 }
 
 function setFooter(fs){
+  console.time('setFooter');
   setSpecDiv(fs, 'footer');
+  console.timeEnd('setFooter');
 }
 
 function setSideBar(fs){
+  console.time('setSideBar');
   var findSideBar = setSpecDiv(fs, 'sidebar');
   if (findSideBar == false) {
     document.getElementById('sidebar').remove();
   }
+  console.timeEnd('setSideBar')
 }
 
 
@@ -100,18 +132,60 @@ function hasChild(parent, child, add){
   })
 }
 
+function getUrlEdit(mode, url){
+  if (mode == "view") {
+    //todo
+    return  window.location.protocol + '//' + window.location.host + '/edit' +  window.location.pathname; 
+  } else {
+    return url;
+  }
+}
+
+function getUrlView(mode, url){
+  if (mode == 'view') {
+    return url;
+  } else {
+    //todo
+    return url.replace('/edit/', '/'); 
+  }
+}
+
+function setLogOut(url){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url.replace(/:\/\//, '://log:out@'), true);
+  xmlhttp.send();
+}
+
+function editCancel(){
+  if (document.querySelectorAll('#original_fancyindex #list a[title="'+path+'"]').length > 0) {
+    window.location.href = urlEdit + '?' + encodeData({'md':mdfile});
+  } else {
+    window.location.href = urlEdit;
+  }
+}
+
+function editSave(){
+  console.time("editSave");
+  writeFile(fs, path, editor.codemirror.getValue());
+  console.timeEnd("editSave");
+  window.location.href = urlEdit + '?' + encodeData({'md':mdfile});
+}
+
 /* load page */
 var params = params(),
+  action = params['action'] ? params['action'] : '',
+  search = params['search'] ? params['search'] : '',
   mdfile = params['md'] ? params['md'] : ''; 
   path = mdfile + '.md';
-var url = window.location.protocol+'//'+window.location.host+window.location.pathname;
+var url = window.location.protocol + '//' + window.location.host+window.location.pathname;
+console.log(window.location.host)
 var fs = new WebDAV.Fs(url);
 var mode = "edit";
 if (url.indexOf("/edit/") == -1) {
   mode = "view";
 };
-var urlView = url;
-var urlEdit = url;
+var urlView = getUrlView(mode, url);
+var urlEdit = getUrlEdit(mode, url);
 
 
 console.log('globale variable');
@@ -123,23 +197,66 @@ console.log('mdfile  :', mdfile);
 console.log('mode    :', mode);
 console.log('fs      :', fs);
 
-console.time('setHeader');
-setHeader(fs);
-console.timeEnd('setHeader');
-console.time('setFooter');
-setFooter(fs);
-console.timeEnd('setFooter');
-console.time('loadSideBar');
-setSideBar(fs);
-console.timeEnd('loadSideBar');
-console.time('loadMd');
-loadMd(fs, path);
-console.timeEnd('loadMd');
+document.body.setAttribute('mode', mode);
+document.body.setAttribute('action', action);
 
+if (mode == 'edit' || mode == 'view' ) {
+  setHeader(fs);
+  setFooter(fs);
+  if (action != 'edit') {
+    setSideBar(fs);
+    loadMd(fs, path);
+  } else {
+    //document.getElementById('content').classList.add('hidden');
+    //document.getElementById('editor').classList.remove('hidden');
+    loadMdEditor(fs, path);
+    var editor = new Editor({toolbar : [
+      {name: 'cross', action: editCancel},
+      {name: 'floppy-disk', action: editSave},
+      '|',
+      {name: 'space', action: null},
+      '|',
+      {name: 'bold', action: Editor.toggleBold},
+      {name: 'italic', action: Editor.toggleItalic},
+      {name: 'code', action: Editor.toggleCodeBlock},
+      '|',
+      {name: 'quote', action: Editor.toggleBlockquote},
+      {name: 'unordered-list', action: Editor.toggleUnOrderedList},
+      {name: 'ordered-list', action: Editor.toggleOrderedList},
+      '|',
+      {name: 'link', action: Editor.drawLink},
+      {name: 'image', action: Editor.drawImage},
+    ]});
+    editor.render();
+    body = document.body,
+    html = document.documentElement;
+    // change size of editor for full
+    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+    document.getElementsByClassName("CodeMirror")[0].style.height = (height-110) + 'px';
+  }
+}
 
 // manage no-style of list with checkbox
 hasChild("li", "input[type=checkbox]", "nostyle");
+
 // manage admonition
 hasChild("pre", "code.language-error", "error");
 hasChild("pre", "code.language-warning", "warning");
 hasChild("pre", "code.language-note", "note");
+
+// manage link
+document.getElementById("login-btn").href = urlEdit + '?' + encodeData({'md':mdfile});
+document.getElementById("logout-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'logout'})
+document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':mdfile, 'action':'edit'})
+
+if (mode == "edit" && mdfile == ""){
+  document.getElementById("edit-btn").innerText = "New";
+  dt = new Date();
+  document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':toIsoDate(), 'action':'edit'})
+}
+
+// manage action
+if (action == 'logout') {
+  setLogOut(urlEdit);
+}
