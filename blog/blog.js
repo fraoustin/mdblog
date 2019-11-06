@@ -19,8 +19,6 @@ marked.setOptions({
 });
 
 
-
-
 function params(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -75,6 +73,7 @@ function setSpecDiv(fs, name){
     }
     namePath = '../' + namePath;
   });
+  return find;
 }
 
 function setHeader(fs){
@@ -84,6 +83,14 @@ function setHeader(fs){
 function setFooter(fs){
   setSpecDiv(fs, 'footer');
 }
+
+function setSideBar(fs){
+  var findSideBar = setSpecDiv(fs, 'sidebar');
+  if (findSideBar == false) {
+    document.getElementById('sidebar').remove();
+  }
+}
+
 
 function hasChild(parent, child, add){
   document.querySelectorAll(parent).forEach(elt => {
@@ -122,9 +129,13 @@ console.timeEnd('setHeader');
 console.time('setFooter');
 setFooter(fs);
 console.timeEnd('setFooter');
+console.time('loadSideBar');
+setSideBar(fs);
+console.timeEnd('loadSideBar');
 console.time('loadMd');
 loadMd(fs, path);
 console.timeEnd('loadMd');
+
 
 // manage no-style of list with checkbox
 hasChild("li", "input[type=checkbox]", "nostyle");
