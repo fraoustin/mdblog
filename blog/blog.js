@@ -1,8 +1,9 @@
 console.log("blog");
 
 var templateBlog = `# Title
-[tag](Name Of Tag)
-[category](Name Of Category)
+
+![tag](Name Of Tag)
+![category](Name Of Category)
 
 Your text
 `;
