@@ -201,12 +201,14 @@ console.log('fs      :', fs);
 document.body.setAttribute('mode', mode);
 document.body.setAttribute('action', action);
 
-if (mode == 'edit' || mode == 'view' ) {
+if (mode == 'edit' || mode == 'view') {
   setHeader(fs);
   setFooter(fs);
   if (action != 'edit') {
     setSideBar(fs);
-    loadMd(fs, path);
+    if (action != 'menu') {
+      loadMd(fs, path);
+    }
   } else {
     //document.getElementById('content').classList.add('hidden');
     //document.getElementById('editor').classList.remove('hidden');
@@ -250,6 +252,13 @@ hasChild("pre", "code.language-note", "note");
 document.getElementById("login-btn").href = urlEdit + '?' + encodeData({'md':mdfile});
 document.getElementById("logout-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'logout'})
 document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':mdfile, 'action':'edit'})
+
+if ( action == 'menu'){
+  document.getElementById("menu-btn").href = url + '?' + encodeData({'md':mdfile})
+} else {
+  document.getElementById("menu-btn").href = url + '?' + encodeData({'md':mdfile, 'action':'menu'})
+}
+
 
 if (mode == "edit" && mdfile == ""){
   document.getElementById("edit-btn").innerText = "New";

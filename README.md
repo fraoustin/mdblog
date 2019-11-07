@@ -102,7 +102,11 @@ run image mytodotxt
 
 - use nginx-alpine
 - search global
-- aera edit online (login, edit)
-- responsive ihm
 - add in mardonw
     - txt2img
+- view directory
+- login ihm
+- sidebar: par année/ par tag
+- upload de fichier
+- chargement des js que quand j'en ai besoin?
+
