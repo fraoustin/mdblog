@@ -161,6 +161,18 @@ pre {
    color: #F44336 !important;
 }
 
+.reading {
+    text-align: right;
+}
+
+.reading a {
+    color: coral;
+}
+
+a.title, .btn, #personnal-shortcut a, #admin a {
+    color: rgb(17, 17, 17);
+}
+
 /* toolbar */
 @font-face{
     font-family:icomoon2;
@@ -169,7 +181,7 @@ pre {
     font-style:normal
 }
 
-.icon-floppy-disk, .icon-cross, .icon-menu {
+.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download {
     font-family: icomoon2;
     speak: none;
     font-style: normal;
@@ -186,6 +198,10 @@ pre {
 
 .icon-menu:before {
     content: "\e9bd";
+}
+
+.icon-download:before {
+    content: "\e960";
 }
 
 .icon-cross:before {
@@ -211,7 +227,8 @@ body[action=edit] #footer,
 body[action=edit] hr,
 body[action=edit] #header,
 body[action=edit] #logout-btn,
-#menu-btn
+#menu-btn,
+body:not([mode=edit]) #admin
 {
     display: none;
 }

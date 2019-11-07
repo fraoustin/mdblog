@@ -104,7 +104,6 @@ run image mytodotxt
 - search global
 - add in mardonw
     - txt2img
-- view directory
 - login ihm
 - sidebar: par année/ par tag
 - upload de fichier
