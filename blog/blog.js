@@ -277,6 +277,19 @@ function editSaveOnly(){
   editSave();
 }
 
+function editUpload(){
+  console.log('upload');
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.onchange = e => {
+    var file = e.target.files[0];
+    fs.file('upload/'+input.files.item(0).name).write(e.target.result);
+    console.log("End upload " + input.value);
+    editor.codemirror.getDoc().setValue(editor.codemirror.getValue() + ' ['+ input.files.item(0).name + '](./upload/'+input.files.item(0).name+')')
+  }
+  input.click();
+}
+
 /* load page */
 var params = params(),
   action = params['action'] ? params['action'] : '',
@@ -334,6 +347,7 @@ if (mode == 'edit' || mode == 'view') {
       '|',
       {name: 'link', action: Editor.drawLink},
       {name: 'image', action: Editor.drawImage},
+      {name: 'cloud-upload', action: editUpload}
     ]});
     editor.render();
     body = document.body,

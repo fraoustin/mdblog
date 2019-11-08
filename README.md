@@ -108,5 +108,4 @@ run image mytodotxt
 - use nginx-alpine
 - add in mardonw
     - txt2img
-- upload de fichier
 

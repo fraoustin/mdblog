@@ -191,7 +191,7 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     font-style:normal
 }
 
-.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search {
+.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search, .icon-cloud-upload {
     font-family: icomoon2;
     speak: none;
     font-style: normal;
@@ -213,6 +213,11 @@ a.title, .btn, #personnal-shortcut a, #admin a {
 .icon-download:before {
     content: "\e960";
 }
+
+.icon-cloud-upload:before {
+    content: "\e9c3";
+}
+
 
 .icon-cross:before {
     content: "\ea0f";
@@ -287,6 +292,7 @@ body[mode=edit][action=edit] #edit-btn,
 body[mode=view][action=edit] #content,
 body:not([action=edit]) #editor,
 body[action=edit] #footer,
+body[action=edit] #sidebar,
 body[action=edit] hr,
 body[action=edit] #header,
 body[action=edit] #logout-btn,
