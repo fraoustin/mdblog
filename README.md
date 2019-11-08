@@ -108,6 +108,5 @@ run image mytodotxt
 - use nginx-alpine
 - add in mardonw
     - txt2img
-- login ihm
 - upload de fichier
 

@@ -225,17 +225,29 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     color: black;
 }
 
-input#searchText {
+input#searchText, input#userText, input#passwordText {
     font-family: Livvic;
     font-size: 16px;
-    text-align: center;
+    text-align: left;
     border: none;
     width: calc(100% - 20px);
 }
+
+
+
 input, input:focus, input:-webkit-autofill {
     outline: none;
     background-color: white !important;
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+#form-login {
+    width: 300px;
+    margin: auto;
+}
+
+.space {
+    height: 20px;
 }
 
 .wrapper input[type="text"] {
@@ -248,6 +260,22 @@ input, input:focus, input:-webkit-autofill {
     left: -5px;
     content: "\e986";
 }
+
+.icon-user:before {
+    font-family: 'icomoon2';
+    position: relative;
+    left: -5px;
+    content: "\e971";
+}
+
+
+.icon-password:before {
+    font-family: 'icomoon2';
+    position: relative;
+    left: -5px;
+    content: "\e98d";
+}
+
 
 
 /* manage mode and action */
@@ -264,7 +292,11 @@ body[action=edit] #header,
 body[action=edit] #logout-btn,
 #menu-btn,
 body:not([mode=edit]) #admin,
-body[mode=edit][action=edit] #menu-btn
+body[mode=edit][action=edit] #menu-btn,
+body[action=login] #content,
+body[action=login] #logout-btn,
+body[action=login] #login-btn,
+body[action=login] #edit-btn
 {
     display: none;
 }
@@ -274,6 +306,9 @@ body[action=menu] #primary {
 }
 body[action=menu] #sidebar {
     width: 100%;
+}
+body:not([action=login]) #login {
+    display: none;
 }
 
 

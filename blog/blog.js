@@ -234,6 +234,23 @@ function setLogOut(url){
   xmlhttp.send();
 }
 
+function setLogIn(urlright, urlwrong, user, password){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", urlright.replace(/:\/\//, '://'+user+':'+password+'@'), true);
+  xmlhttp.onreadystatechange=function() 
+  {
+    if(xmlhttp.readyState==4){
+      if (xmlhttp.status == 200) {
+        window.location.href = urlright;
+      } else {
+        window.location.href = urlwrong;
+      }
+    }
+  }
+  xmlhttp.send();
+}
+
+
 function editCancel(){
   if (document.querySelectorAll('#original_fancyindex #list a[title="'+path+'"]').length > 0) {
     if (mdfile.endsWith('_header') == true || mdfile.endsWith('_footer') == true || mdfile.endsWith('_sidebar') == true){
@@ -337,7 +354,7 @@ hasChild("pre", "code.language-warning", "warning");
 hasChild("pre", "code.language-note", "note");
 
 // manage link
-document.getElementById("login-btn").href = urlEdit + '?' + encodeData({'md':mdfile});
+document.getElementById("login-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'login'});
 document.getElementById("logout-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'logout'})
 document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':mdfile, 'action':'edit'})
 
@@ -359,7 +376,7 @@ if (action == 'logout') {
   setLogOut(urlEdit);
 }
 
-if (mdfile.length == 0){
+if (mdfile.length == 0 && action != 'login'){
   var cnt = 0
   if (action != 'edit' && action != 'menu' && action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
@@ -394,9 +411,25 @@ searchText.addEventListener("keydown", function (e) {
     if ( document.getElementById('searchText').value.length > 0) {
       window.location.href = url + '?' + encodeData({'action':'search', 'search': document.getElementById('searchText').value });
     } else {
-     window.location.href = url;
+      window.location.href = url;
     }
   };
 });
+
+// manage login
+if (action == 'login') {
+  document.getElementById('userText').focus();
+}
+
+var passwordText = document.getElementById("passwordText");
+passwordText.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+    if ( document.getElementById('passwordText').value.length > 0 && document.getElementById('userText').value.length > 0) {
+      setLogIn(urlEdit + '?' + encodeData({'md': mdfile}), url, document.getElementById('userText').value, document.getElementById('passwordText').value);
+    }
+  };
+});
+
+
 
 console.timeEnd("global");
