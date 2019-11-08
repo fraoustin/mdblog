@@ -1,0 +1,341 @@
+body, pre code {
+    font-family: Livvic;
+}
+
+body {
+    color: rgb(17, 17, 17);
+}
+
+#original_fancyindex {
+    display: none;
+}
+
+#header, #header {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#header table, #footer table {
+    width: 100%;
+}
+
+
+#header hr, #footer hr {
+    background: #ccc;
+    height: 1px;
+    border: 0;
+    max-width: 1230px;
+    text-align: center;
+}
+
+#header hr {
+    margin: 2em auto;
+}
+
+#footer hr {
+    margin: 1em auto;
+}
+
+#footer th {
+    font-weight: unset;
+}
+
+#content, #editor {
+    max-width: 1230px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#content {
+    display: flex;
+}
+
+#primary {
+    width: -webkit-fill-available;
+}
+
+#sidebar {
+    padding-left: 20px;
+    min-width: 20%;
+}
+
+a.btn {
+    border: 1px solid #ccc;
+    background: white;
+    padding: .5rem 1rem;
+    margin: 0;
+    -webkit-border-radius: .25em;
+    -moz-border-radius: .25em;
+    border-radius: .25em;
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
+}
+
+a#edit-btn.btn {
+    position: fixed;
+    bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.date {
+    color: grey;
+    font-size: small;
+    font-style: italic;
+}
+
+/* for mardown */
+
+#content tbody{display:table-row-group}
+#content tfoot{display:table-footer-group}
+#content table{margin-bottom:2em;font-size: 0.8em;padding:0;border-collapse:collapse;-webkit-box-shadow:1px 1px 2px rgba(0,0,0,.35);width:80%;margin:0 auto 2em auto}
+#content table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left}
+#content table th{
+padding-top:9px;!important;text-transform:uppercase;vertical-align:middle}
+#content table td{vertical-align:top;border-top:1px solid #ddd;}
+#content table tbody th{border-top:1px solid #ddd;vertical-align:top}
+#content table{border:1px solid #ddd;/* border-collapse:separate; */*border-collapse:collapse;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+#content table th+th,table td+td,table th+td{border-left:1px solid #ddd}
+#content table thead tr:first-child th:first-child,table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0}
+#content table thead tr:first-child th:last-child,table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0}
+#content table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px}
+#content table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0}
+#content tbody tr:nth-child(odd){background-color:rgba(0,0,0,0.03)}
+
+#content h1 {
+    margin: 0px;
+}
+
+a{text-decoration: none;}
+
+blockquote {
+    font-style: italic;
+}
+
+blockquote {
+    border-left: 2px solid #ccc;
+    margin: 0px 10px;
+    padding: 0px 10px;
+}
+
+input[type=checkbox]:before{ 
+    content:""; 
+    display:inline-block;
+    width:16px; 
+    height:16px;
+    background: white;
+    background-image: url(/blog/img/square.svg);
+    background-size: auto 100%;
+}
+
+input[type=checkbox]:checked:before{
+    background-image: url(/blog/img/check-square.svg);
+}
+
+li.nostyle {
+    list-style-type: none; 
+}
+
+pre {
+    border-left: 2px solid #ccc;
+    margin: 10px;
+    padding: 0px 10px;
+}
+
+
+.warning {
+  border-left: 2px solid #FF9800 !important;
+}
+
+.warning code {
+  color: #FF9800 !important;
+}
+
+.note {
+   border-left: 2px solid #6AB0DE !important;
+}
+
+.note {
+   color: #6AB0DE !important;
+}
+
+.error {
+   border-left: 2px solid #F44336 !important;
+}
+
+.error {
+   color: #F44336 !important;
+}
+
+.reading {
+    text-align: right;
+}
+
+.reading a {
+    color: coral;
+}
+
+a.title, .btn, #personnal-shortcut a, #admin a {
+    color: rgb(17, 17, 17);
+}
+
+/* toolbar */
+@font-face{
+    font-family:icomoon2;
+    src:url(font/icomoon2.woff) format('woff');
+    font-weight:400;
+    font-style:normal
+}
+
+.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search, .icon-cloud-upload {
+    font-family: icomoon2;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon-floppy-disk:before {
+    content: "\e962";
+}
+
+.icon-menu:before {
+    content: "\e9bd";
+}
+
+.icon-download:before {
+    content: "\e960";
+}
+
+.icon-cloud-upload:before {
+    content: "\e9c3";
+}
+
+
+.icon-cross:before {
+    content: "\ea0f";
+}
+
+.icon-space {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+
+input#searchText, input#userText, input#passwordText {
+    font-family: Livvic;
+    font-size: 16px;
+    text-align: left;
+    border: none;
+    width: calc(100% - 20px);
+}
+
+
+
+input, input:focus, input:-webkit-autofill {
+    outline: none;
+    background-color: white !important;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+#form-login {
+    width: 300px;
+    margin: auto;
+}
+
+.space {
+    height: 20px;
+}
+
+.wrapper input[type="text"] {
+    position: relative; 
+}
+
+.icon-search:before {
+    font-family: 'icomoon2';
+    position: relative;
+    left: -5px;
+    content: "\e986";
+}
+
+.icon-user:before {
+    font-family: 'icomoon2';
+    position: relative;
+    left: -5px;
+    content: "\e971";
+}
+
+
+.icon-password:before {
+    font-family: 'icomoon2';
+    position: relative;
+    left: -5px;
+    content: "\e98d";
+}
+
+
+
+/* manage mode and action */
+body[mode=view] #logout-btn,
+body[mode=view] #edit-btn,
+body[mode=edit] #login-btn,
+body:not([mode=edit]) #edit-btn,
+body[mode=edit][action=edit] #edit-btn,
+body[mode=view][action=edit] #content,
+body:not([action=edit]) #editor,
+body[action=edit] #footer,
+body[action=edit] #sidebar,
+body[action=edit] hr,
+body[action=edit] #header,
+body[action=edit] #logout-btn,
+#menu-btn,
+body:not([mode=edit]) #admin,
+body[mode=edit][action=edit] #menu-btn,
+body[action=login] #content,
+body[action=login] #logout-btn,
+body[action=login] #login-btn,
+body[action=login] #edit-btn
+{
+    display: none;
+}
+
+body[action=menu] #primary {
+    display: none;
+}
+body[action=menu] #sidebar {
+    width: 100%;
+}
+body:not([action=login]) #login {
+    display: none;
+}
+
+
+
+ 
+/* manage responsive */
+@media screen and (max-width: 1180px) {
+    #content, #header hr {
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body:not([action=menu]) #sidebar {
+        display: none;
+    }
+    #menu-btn {
+        display: unset;
+        right: unset;
+        left: 10px;
+    }
+}

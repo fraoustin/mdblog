@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Todotxt">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>Blog</title>
+        
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="/blog/img/android-desktop.png">
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Todo">
+        <link rel="apple-touch-icon-precomposed" href="/blog/img/images/ios-desktop.png">
+
+        <link rel="shortcut icon" href="/blog/img/favicon.png">
+        <link rel="stylesheet" href="/blog/blog.css">
+        <link rel="stylesheet" href="/blog/font.css">
+ 
+        <script src="/blog/marked.js"></script>
+        <!-- highlight -->
+        <script src='/blog/highlight.pack.js'></script>
+        <link rel="stylesheet" href="/blog/atom-one-light.css">
+
+        <link rel="stylesheet" href="/blog/editor/editor.css">
+        <script src="/blog/editor/editor.js"></script>
+
+    </head>
+
+    <body>
+        <a id="menu-btn" class="btn icon-menu" href=""></a>
+        <a id="login-btn" class="btn" href="">Login</a>
+        <a id="logout-btn" class="btn" href="">Logout</a>
+        <a id="edit-btn" class="btn" href="">Edit</a>
+        
+        <div id="header"></div>
+        <div id="editor">
+            <textarea></textarea>
+        </div>
+        <div id="login">
+            <form action="" onsubmit="return false;" id="form-login">
+                <div class="input-container">
+                    <span class="wrapper icon-user"><input type="text" placeholder="User" id="userText"></span>
+                </div>
+                <div class="space"></div>
+                <div class="input-container">
+                    <span class="wrapper icon-password"><input type="password" placeholder="Password" id="passwordText"></span>
+                </div>
+            </form>
+        </div>
+        <div id="content">
+            <div id="primary"></div>
+            <div id="sidebar">
+                <div id="search">
+                    <form action="" onsubmit="return false;" id="form-addlist">
+                        <div class="input-container">
+                            <span class="wrapper icon-search"><input type="text" placeholder="Search" id="searchText"></span>
+                        </div>
+                    </form>
+                </div>
+                <div id="personnal-shortcut"></div>
+                <div id="admin">
+                    <h3>admin</h3>
+                    <ul>
+                        <li><a id="header.md">Header</a></li>
+                        <li><a id="footer.md">Footer</a></li>
+                        <li><a id="sidebar.md">SideBar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+        <div id="original_fancyindex">
+        
