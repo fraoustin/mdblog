@@ -44,10 +44,16 @@
         <div id="content">
             <div id="primary"></div>
             <div id="sidebar">
-                <div id="search"></div>
+                <div id="search">
+                    <form action="" onsubmit="return false;" id="form-addlist">
+                        <div class="input-container">
+                            <span class="wrapper icon-search"><input type="text" placeholder="Search" id="searchText"></span>
+                        </div>
+                    </form>
+                </div>
                 <div id="personnal-shortcut"></div>
                 <div id="admin">
-                    <h2>admin</h2>
+                    <h3>admin</h3>
                     <ul>
                         <li><a id="header.md">Header</a></li>
                         <li><a id="footer.md">Footer</a></li>

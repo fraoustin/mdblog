@@ -53,6 +53,11 @@ You can use in your text (write with markdown)
     ```
 ```
 
+You can search post by year with *year:XXXX* in search input.
+
+You can search post by tag (or category) with *[tag](mytag)* in search input.
+
+
 
 You can change
 
@@ -101,11 +106,8 @@ run image mytodotxt
 ## Feature
 
 - use nginx-alpine
-- search global
 - add in mardonw
     - txt2img
 - login ihm
-- sidebar: par année/ par tag
 - upload de fichier
-- chargement des js que quand j'en ai besoin?
 

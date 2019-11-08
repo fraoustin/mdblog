@@ -42,7 +42,7 @@ function params(param) {
 	window.location.href.replace( location.hash, '' ).replace( 
 		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
 		function( m, key, value ) { // callback
-			vars[key] = value !== undefined ? value : '';
+			vars[key] = value !== undefined ? decodeURIComponent(value) : '';
 		}
 	);
 
@@ -54,18 +54,18 @@ function params(param) {
 
 
 function readFile(fs, path, is404=""){
-  console.time("readFile")
+  console.time("readFile " + path)
   try {
     var txt=fs.file(path).read();
     if (txt.indexOf("<head><title>404 Not Found</title></head>") == -1) {
-      console.timeEnd("readFile");
+      console.timeEnd("readFile " + path);
       return txt;
     } else {
-      console.timeEnd("readFile");
+      console.timeEnd("readFile " + path);
       return is404;
     }
   } catch (error) {
-      console.timeEnd("readFile");
+      console.timeEnd("readFile " + path);
       return "";
   }
 }
@@ -81,6 +81,16 @@ function mdToHtml(txt){
 function loadMd(fs, path){
   console.time('loadMd');
   document.getElementById('primary').innerHTML = mdToHtml(readFile(fs, path, "Oups ..."));
+  var t = document.getElementById("content").getElementsByTagName('h1')
+  if (t.length > 0) {
+    dt = new Date(path.substring(0,4), path.substring(4,6)-1, path.substring(6,8));
+    if (!isNaN(dt)) {
+      c = document.createElement("span");
+      c.classList.add("date");
+      c.innerText = dt.toLocaleDateString() ;
+      t[0].insertAdjacentElement('afterend', c);
+    }
+  }
   console.timeEnd('loadMd');
 }
 
@@ -90,16 +100,32 @@ function loadMdEditor(fs, path){
   console.timeEnd('loadMdEditor');
 }
 
-function loadMdExtract(fs, path, id, link, size=300){
+function loadMdExtract(fs, path, id, link, size=300, search=''){
   console.time('loadMdExtract');
-  document.getElementById('primary').innerHTML = document.getElementById('primary').innerHTML 
-        + "<div id='"+ id +"' class='extract'>"
-        + mdToHtml(readFile(fs, path).substring(0, size))
-        + "<div class='reading'><a href='"+ link +"'>continue reading</a></div>";
-        + "</div>"
-  var t = document.getElementById(id).getElementsByTagName('h1')
-  if (t.length > 0) {
-    t[0].innerHTML = "<a href='"+ link +"' class='title'>"+ t[0].innerHTML +"</a></div>";
+  var txtFile = readFile(fs, path);
+  if (search.length > 0){
+    if (txtFile.indexOf(search) == -1) {
+      txtFile = "";
+    }
+  }
+  if (txtFile.length > 0){
+    document.getElementById('primary').innerHTML = document.getElementById('primary').innerHTML 
+          + "<div id='"+ id +"' class='extract'>"
+          + mdToHtml(txtFile.substring(0, size))
+          + "<div class='reading'><a href='"+ link +"'>continue reading</a></div>";
+          + "</div>"
+    var t = document.getElementById(id).getElementsByTagName('h1')
+    if (t.length > 0) {
+      t[0].innerHTML = "<a href='"+ link +"' class='title'>"+ t[0].innerHTML +"</a></div>";
+      dt = new Date(path.substring(0,4), path.substring(4,6)-1, path.substring(6,8));
+      if (!isNaN(dt)) {
+        c = document.createElement("span");
+        c.classList.add("date");
+        c.innerText = dt.toLocaleDateString() ;
+        t[0].insertAdjacentElement('afterend', c);
+      }
+    }
+    
   }
   console.timeEnd('loadMdExtract');
 }
@@ -108,8 +134,8 @@ function getSpecPath(fs, namePath){
   find = false;
   fs.rootUrl.split('/').forEach(elt => {
     if (find == false) {
-      var htmlHeader = readFile(fs, namePath) 
-      if (htmlHeader.length != 0) {
+      var htmlPath = readFile(fs, namePath) 
+      if (htmlPath.length != 0) {
         find = true;
       }else{
         namePath = '../' + namePath;
@@ -144,6 +170,11 @@ function setHeader(fs){
     pathHeader = pathHeader.substring(0,pathHeader.length-3);
   }
   document.getElementById('header.md').href = urlEdit + '?' + encodeData({'md':pathHeader, 'action':'edit'});
+  var t = document.getElementById('header').getElementsByTagName('h1')
+  if (t.length > 0) {
+    document.title = t[0].innerText;
+    t[0].innerHTML = "<a href='"+ url +"' class='title'>"+ t[0].innerHTML +"</a></div>";
+  }
   console.timeEnd('setHeader');
 }
 
@@ -182,7 +213,6 @@ function hasChild(parent, child, add){
 
 function getUrlEdit(mode, url){
   if (mode == "view") {
-    //todo
     return  window.location.protocol + '//' + window.location.host + '/edit' +  window.location.pathname; 
   } else {
     return url;
@@ -206,7 +236,7 @@ function setLogOut(url){
 
 function editCancel(){
   if (document.querySelectorAll('#original_fancyindex #list a[title="'+path+'"]').length > 0) {
-    if (mdfile == '_header' || mdfile == '_footer' || mdfile == '__sidebar'){
+    if (mdfile.endsWith('_header') == true || mdfile.endsWith('_footer') == true || mdfile.endsWith('_sidebar') == true){
       mdfile = ''
     }
     window.location.href = urlEdit + '?' + encodeData({'md':mdfile});
@@ -223,10 +253,7 @@ function editSave(){
 
 function editSaveAndClose(){
   editSave();
-  if (mdfile == '_header' || mdfile == '_footer' || mdfile == '__sidebar'){
-    mdfile = ''
-  }
-  window.location.href = urlEdit + '?' + encodeData({'md':mdfile});
+  editCancel();
 }
 
 function editSaveOnly(){
@@ -257,6 +284,7 @@ console.log('urlEdit :', urlEdit);
 console.log('path    :', path)
 console.log('mdfile  :', mdfile);
 console.log('mode    :', mode);
+console.log('search  :', search);
 console.log('fs      :', fs);
 
 document.body.setAttribute('mode', mode);
@@ -333,7 +361,7 @@ if (action == 'logout') {
 
 if (mdfile.length == 0){
   var cnt = 0
-  if (action != 'edit' && action != 'menu'){
+  if (action != 'edit' && action != 'menu' && action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
       if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10) {
         console.log(elt.title);
@@ -342,6 +370,33 @@ if (mdfile.length == 0){
       }
     })
   }
+  if (action == 'search' && search.length > 0) {
+    document.getElementById('searchText').value = search;
+    if (search.startsWith('year:') == true){
+      year = search.substring(5, search.length);
+      search = '';
+    } else {
+      year = ''
+    };
+    Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
+      if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10 && elt.title.startsWith(year)) {
+        loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}), 300, search);
+        cnt = cnt +1;
+      }
+    })
+  }
 }
+
+// manage search
+var searchText = document.getElementById("searchText");
+searchText.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+    if ( document.getElementById('searchText').value.length > 0) {
+      window.location.href = url + '?' + encodeData({'action':'search', 'search': document.getElementById('searchText').value });
+    } else {
+     window.location.href = url;
+    }
+  };
+});
 
 console.timeEnd("global");
