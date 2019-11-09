@@ -75,7 +75,7 @@ a.btn {
 
 a#edit-btn.btn {
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
 }
 
 .hidden {
@@ -191,7 +191,7 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     font-style:normal
 }
 
-.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search, .icon-cloud-upload {
+.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search, .icon-cloud-upload, .icon-switch, .icon-pencil, .icon-file-text {
     font-family: icomoon2;
     speak: none;
     font-style: normal;
@@ -208,6 +208,18 @@ a.title, .btn, #personnal-shortcut a, #admin a {
 
 .icon-menu:before {
     content: "\e9bd";
+}
+
+.icon-switch:before {
+    content: "\e9b6";
+}
+
+.icon-pencil:before {
+    content: "\e905";
+}
+
+.icon-file-text:before {
+    content: "\e922";
 }
 
 .icon-download:before {
