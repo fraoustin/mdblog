@@ -380,7 +380,8 @@ if ( action == 'menu'){
 
 
 if (mode == "edit" && mdfile == ""){
-  document.getElementById("edit-btn").innerText = "New";
+  document.getElementById("edit-btn").classList.remove("icon-pencil");
+  document.getElementById("edit-btn").classList.add("icon-file-text");
   dt = new Date();
   document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':toIsoDate(), 'action':'edit'})
 }
