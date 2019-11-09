@@ -411,9 +411,8 @@ if (mdfile.length == 0 && action != 'login'){
       year = ''
     };
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
-      if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10 && elt.title.startsWith(year)) {
+      if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && elt.title.startsWith(year)) {
         loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}), 300, search);
-        cnt = cnt +1;
       }
     })
   }
