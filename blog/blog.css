@@ -155,11 +155,11 @@ pre {
   color: #FF9800 !important;
 }
 
-.note {
+.note, .info {
    border-left: 2px solid #6AB0DE !important;
 }
 
-.note {
+.note, .info {
    color: #6AB0DE !important;
 }
 
@@ -183,7 +183,7 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     color: rgb(17, 17, 17);
 }
 
-.note .hljs-symbol, .note .hljs-comment, .error .hljs-symbol, .error .hljs-comment, .warning .hljs-symbol, .warning .hljs-comment {
+.info .hljs-symbol, .info .hljs-comment, .note .hljs-symbol, .note .hljs-comment, .error .hljs-symbol, .error .hljs-comment, .warning .hljs-symbol, .warning .hljs-comment {
     color: unset;
 }
 
