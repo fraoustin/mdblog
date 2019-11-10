@@ -19,7 +19,6 @@ RUN chmod +x -R /usr/share/docker-entrypoint.pre
 # install extra nginx
 RUN apt-get update && apt-get install -y \
         apache2-utils \
-        git \
         nginx-extras \
     && rm -rf /var/lib/apt/lists/* 
 

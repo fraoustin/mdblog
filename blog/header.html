@@ -14,8 +14,8 @@
         <!-- Add to homescreen for Safari on iOS -->
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Todo">
-        <link rel="apple-touch-icon-precomposed" href="/blog/img/images/ios-desktop.png">
+        <meta name="apple-mobile-web-app-title" content="Blog">
+        <link rel="apple-touch-icon-precomposed" href="/blog/img/ios-desktop.png">
 
         <link rel="shortcut icon" href="/blog/img/favicon.png">
         <link rel="stylesheet" href="/blog/blog.css">
@@ -36,7 +36,8 @@
         <a id="login-btn" class="btn icon-switch" href=""></a>
         <a id="logout-btn" class="btn icon-switch" href=""></a>
         <a id="edit-btn" class="btn icon-pencil" href=""></a>
-        
+        <input class="hidden" type="file" id="nameFile" onchange="upload()"/>
+ 
         <div id="header"></div>
         <div id="editor">
             <textarea></textarea>
