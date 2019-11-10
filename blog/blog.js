@@ -277,17 +277,20 @@ function editSaveOnly(){
   editSave();
 }
 
+
 function editUpload(){
-  console.log('upload');
-  var input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = e => {
-    var file = e.target.files[0];
-    fs.file('upload/'+input.files.item(0).name).write(e.target.result);
-    console.log("End upload " + input.value);
-    editor.codemirror.getDoc().setValue(editor.codemirror.getValue() + ' ['+ input.files.item(0).name + '](./upload/'+input.files.item(0).name+')')
-  }
-  input.click();
+  document.getElementById("nameFile").click();
+}
+
+function upload(){
+  var url = window.location.protocol + '//' + window.location.host+window.location.pathname;
+  var fs = new WebDAV.Fs(url);
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    fs.file("./upload/" + document.getElementById("nameFile").files.item(0).name).write(event.target.result);
+    location.reload();
+  };
+  reader.readAsArrayBuffer(document.getElementById("nameFile").files[0]);
 }
 
 /* load page */
@@ -396,7 +399,6 @@ if (mdfile.length == 0 && action != 'login'){
   if (action != 'edit' && action != 'menu' && action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
       if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10) {
-        console.log(elt.title);
         loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}));
         cnt = cnt +1;
       }

@@ -28,7 +28,7 @@ write markdown file and view blog
 
 run image fraoustin/blog-webdav
 
-    docker run -d -v <localpath>:/share --name blog -p 80:80 fraoustin/blog-webdav
+    docker run -d -v <localpath>:/share --name blog -p 80:80 fraoustin/mdblog
 
 user default is *user* and password default is *pass*
 
@@ -70,7 +70,7 @@ You can change
 
 Sample of Dockerfile
 
-    FROM fraoustin/blog-webdav
+    FROM fraoustin/mdblog
     COPY ./00_init.sh /usr/share/docker-entrypoint.pre/00_init.sh
     RUN chmod +x -R /usr/share/gitweb/docker-entrypoint.pre
 
@@ -92,9 +92,9 @@ run image mytodotxt
 
 ## For developer
 
-    git clone https://github.com/fraoustin/blog-webdav.git
+    git clone https://github.com/fraoustin/mdblog.git
     docker build -t myblog .
-    docker run -d -v c:/users/myhome/workspace/blog-webdav/blog:/theme/blog -v c:/users/myhome/downloads/blog:/share --name test -p 8080:80 myblog
+    docker run -d -v c:/users/myhome/workspace/mdblog/blog:/theme/blog -v c:/users/myhome/downloads/blog:/share --name test -p 8080:80 myblog
 
 ## External library
 
