@@ -398,7 +398,7 @@ if (mdfile.length == 0 && action != 'login'){
   var cnt = 0
   if (action != 'edit' && action != 'menu' && action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
-      if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10) {
+      if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 5) {
         loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}));
         cnt = cnt +1;
       }
