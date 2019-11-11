@@ -1,4 +1,4 @@
-# blog-webdav
+# mdblog
 
 generate a nginx server webdav with a blog
 
