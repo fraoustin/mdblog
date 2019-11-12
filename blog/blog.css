@@ -334,7 +334,9 @@ body:not([action=login]) #login {
 }
 
 
-
+#content img {
+    max-width: 100%;
+}
  
 /* manage responsive */
 @media screen and (max-width: 1180px) {
