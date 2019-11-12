@@ -338,6 +338,10 @@ body:not([action=login]) #login {
     max-width: 100%;
 }
  
+#content pre {
+    overflow-x:scroll;
+}
+ 
 /* manage responsive */
 @media screen and (max-width: 1180px) {
     #content, #header hr {
