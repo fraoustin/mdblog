@@ -332,33 +332,42 @@ if (mode == 'edit' || mode == 'view') {
       loadMd(fs, path);
     }
   } else {
-    loadMdEditor(fs, path);
-    var editor = new Editor({toolbar : [
-      {name: 'cross', action: editCancel},
-      {name: 'floppy-disk', action: editSaveAndClose},
-      {name: 'download', action: editSaveOnly},
-      '|',
-      {name: 'space', action: null},
-      '|',
-      {name: 'bold', action: Editor.toggleBold},
-      {name: 'italic', action: Editor.toggleItalic},
-      {name: 'code', action: Editor.toggleCodeBlock},
-      '|',
-      {name: 'quote', action: Editor.toggleBlockquote},
-      {name: 'unordered-list', action: Editor.toggleUnOrderedList},
-      {name: 'ordered-list', action: Editor.toggleOrderedList},
-      '|',
-      {name: 'link', action: Editor.drawLink},
-      {name: 'image', action: Editor.drawImage},
-      {name: 'cloud-upload', action: editUpload}
-    ]});
-    editor.render();
-    body = document.body,
-    html = document.documentElement;
-    // change size of editor for full
-    var height = Math.max( body.scrollHeight, body.offsetHeight, 
-                       html.clientHeight, html.scrollHeight, html.offsetHeight );
-    document.getElementsByClassName("CodeMirror")[0].style.height = (height-110) + 'px';
+    var styleSheet = document.createElement("link")
+    styleSheet.rel = "stylesheet"
+    styleSheet.href = '/blog/editor/editor.css'
+    document.head.appendChild(styleSheet)
+    var script = document.createElement("script")
+    script.src = '/blog/editor/editor.js'
+    script.onload = function(){
+      loadMdEditor(fs, path);
+      var editor = new Editor({toolbar : [
+        {name: 'cross', action: editCancel},
+        {name: 'floppy-disk', action: editSaveAndClose},
+        {name: 'download', action: editSaveOnly},
+        '|',
+        {name: 'space', action: null},
+        '|',
+        {name: 'bold', action: Editor.toggleBold},
+        {name: 'italic', action: Editor.toggleItalic},
+        {name: 'code', action: Editor.toggleCodeBlock},
+        '|',
+        {name: 'quote', action: Editor.toggleBlockquote},
+        {name: 'unordered-list', action: Editor.toggleUnOrderedList},
+        {name: 'ordered-list', action: Editor.toggleOrderedList},
+        '|',
+        {name: 'link', action: Editor.drawLink},
+        {name: 'image', action: Editor.drawImage},
+        {name: 'cloud-upload', action: editUpload}
+      ]});
+      editor.render();
+      body = document.body,
+      html = document.documentElement;
+      // change size of editor for full
+      var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                          html.clientHeight, html.scrollHeight, html.offsetHeight );
+      document.getElementsByClassName("CodeMirror")[0].style.height = (height-110) + 'px';
+    }
+    document.head.appendChild(script)
   }
 }
 
