@@ -332,6 +332,7 @@ if (mode == 'edit' || mode == 'view') {
       loadMd(fs, path);
     }
   } else {
+    var editor = null;
     var styleSheet = document.createElement("link")
     styleSheet.rel = "stylesheet"
     styleSheet.href = '/blog/editor/editor.css'
@@ -340,7 +341,7 @@ if (mode == 'edit' || mode == 'view') {
     script.src = '/blog/editor/editor.js'
     script.onload = function(){
       loadMdEditor(fs, path);
-      var editor = new Editor({toolbar : [
+      editor = new Editor({toolbar : [
         {name: 'cross', action: editCancel},
         {name: 'floppy-disk', action: editSaveAndClose},
         {name: 'download', action: editSaveOnly},
