@@ -409,7 +409,7 @@ if (mdfile.length == 0 && action != 'login'){
   if (action != 'edit' && action != 'menu' && action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
       if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 5) {
-        loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}));
+        setTimeout(loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)})),0);
         cnt = cnt +1;
       }
     })
@@ -424,7 +424,7 @@ if (mdfile.length == 0 && action != 'login'){
     };
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
       if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && elt.title.startsWith(year)) {
-        loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}), 300, search);
+        setTimeout(loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}), 300, search),0);
       }
     })
   }
