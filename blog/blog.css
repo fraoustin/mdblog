@@ -183,7 +183,30 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     color: rgb(17, 17, 17);
 }
 
-.info .hljs-symbol, .info .hljs-comment, .note .hljs-symbol, .note .hljs-comment, .error .hljs-symbol, .error .hljs-comment, .warning .hljs-symbol, .warning .hljs-comment {
+.info .hljs-symbol,
+.info .hljs-comment,
+.info .hljs-selector-tag,
+.info .hljs-selector-class,
+.info .hljs-tag,
+.info .hljs-name,
+.note .hljs-symbol,
+.note .hljs-comment,
+.note .hljs-selector-tag,
+.note .hljs-selector-class,
+.note .hljs-tag,
+.note .hljs-name,
+.error .hljs-symbol,
+.error .hljs-comment,
+.error .hljs-selector-tag,
+.error .hljs-selector-class,
+.error .hljs-tag,
+.error .hljs-name,
+.warning .hljs-symbol,
+.warning .hljs-comment,
+.warning .hljs-selector-tag,
+.warning .hljs-selector-class,
+.warning .hljs-tag,
+.warning .hljs-name {
     color: unset;
 }
 
@@ -339,7 +362,16 @@ body:not([action=login]) #login {
 }
  
 #content pre {
-    overflow-x:scroll;
+    overflow-x:auto;
+}
+  
+#content pre.info,
+#content pre.note,
+#content pre.error,
+#content pre.warning
+{
+    overflow-x:unset;
+    white-space: normal;
 }
  
 /* manage responsive */
