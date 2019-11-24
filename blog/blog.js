@@ -74,8 +74,20 @@ function writeFile(fs, path, txt){
   fs.file(path).write(txt)
 }
 
+function transformGraphviz(txt) {
+  var arrMatch = null;
+  var rePattern = new RegExp("(```graphviz([^```])*```\n)", "g");
+  txt = txt.replace(rePattern, function(match, g1, g2, index){
+    console.log(match)
+    console.log(index)
+    return match;
+  })
+  return txt
+}
+
 function mdToHtml(txt){
-    return marked(txt);
+  txt = transformGraphviz(txt); 
+  return marked(txt);
 }
 
 function loadMd(fs, path){
