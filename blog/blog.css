@@ -384,7 +384,12 @@ body:not([action=login]) #login {
     display: block;
     margin: auto;
 }
- 
+
+#content img[alt='tag'], #content img[alt='category'] {
+    display: unset;
+    margin: unset;
+}
+
 #content pre {
     overflow-x:auto;
 }
