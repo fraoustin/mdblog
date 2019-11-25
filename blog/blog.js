@@ -8,6 +8,20 @@ var templateBlog = `# Title
 Your text
 `;
 
+var graphviz_head = `
+digraph G {
+  edge [headlabel=" ", label=" ", taillabel=" "];
+  node [style="rounded", shape=record];
+  bgcolor="#FFFFFF";
+  ratio=auto;
+  compound=true;
+`;
+var graphviz_foot = `
+}
+`;
+
+
+
 function isDate(value) {
   return (value && typeof value == 'object' && toString.call(value) == '[object Date]') || false;
 };
@@ -80,6 +94,9 @@ function transformGraphviz(txt) {
   var rePattern = new RegExp("(```graphviz\n([^```])*```\n)", "g");
   txt = txt.replace(rePattern, function(match, g1, g2, index){
     code = match.replace('```graphviz\n','').replace('```','')
+    if (code.indexOf("digraph") == -1) {
+      code = graphviz_head + code + graphviz_foot; 
+    }
     results.push([marked(match), Viz(code, {'format':'svg'})])
     return match;
   })

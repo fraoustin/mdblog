@@ -138,6 +138,4 @@ run image mytodotxt
 ## Feature
 
 - use nginx-alpine
-- add in mardonw
-    - txt2img
 
