@@ -75,19 +75,24 @@ function writeFile(fs, path, txt){
 }
 
 function transformGraphviz(txt) {
+  var results = [];
   var arrMatch = null;
-  var rePattern = new RegExp("(```graphviz([^```])*```\n)", "g");
+  var rePattern = new RegExp("(```graphviz\n([^```])*```\n)", "g");
   txt = txt.replace(rePattern, function(match, g1, g2, index){
-    console.log(match)
-    console.log(index)
+    code = match.replace('```graphviz\n','').replace('```','')
+    results.push([marked(match), Viz(code, {'format':'svg'})])
     return match;
   })
-  return txt
+  return results
 }
 
 function mdToHtml(txt){
-  txt = transformGraphviz(txt); 
-  return marked(txt);
+  graphvizs = transformGraphviz(txt); 
+  txt = marked(txt)
+  graphvizs.forEach(elt => {
+    txt = txt.replace(elt[0], elt[1])
+  })
+  return txt;
 }
 
 function loadMd(fs, path){
