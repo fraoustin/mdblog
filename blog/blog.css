@@ -151,6 +151,8 @@ pre {
 
 .warning {
   border-left: 2px solid #FF9800 !important;
+  margin: 10px;
+  padding: 0px 10px;
 }
 
 .warning code {
@@ -159,19 +161,25 @@ pre {
 
 .note, .info {
    border-left: 2px solid #6AB0DE !important;
+   margin: 10px;
+   padding: 0px 10px;
 }
 
 .note, .info {
    color: #6AB0DE !important;
 }
 
-.error {
-   border-left: 2px solid #F44336 !important;
+.note > pre, .error > pre, .info > pre, .warning > pre {
+    display: none;
 }
 
 .error {
-   color: #F44336 !important;
+   border-left: 2px solid #F44336 !important;
+   margin: 10px;
+   padding: 0px 10px;
 }
+
+
 
 .reading {
     text-align: right;

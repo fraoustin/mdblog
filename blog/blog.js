@@ -88,6 +88,17 @@ function writeFile(fs, path, txt){
   fs.file(path).write(txt)
 }
 
+function transformAdmonition(admo, txt, results) {
+  var arrMatch = null;
+  var rePattern = new RegExp("(```"+admo+"\n([^```])*```\n)", "g");
+  txt = txt.replace(rePattern, function(match, g1, g2, index){
+    code = match.replace('```"+admo+"\n','').replace('```','')
+    results.push([marked(match), "<div class='"+admo+"'>"+marked(code)+"</div>"])
+    return match;
+  })
+  return results
+}
+
 function transformGraphviz(txt) {
   var results = [];
   var arrMatch = null;
@@ -105,8 +116,15 @@ function transformGraphviz(txt) {
 
 function mdToHtml(txt){
   graphvizs = transformGraphviz(txt); 
+  admos = transformAdmonition("note", txt, [])
+  admos = transformAdmonition("info", txt, admos)
+  admos = transformAdmonition("error", txt, admos)
+  admos = transformAdmonition("warning", txt, admos)
   txt = marked(txt)
   graphvizs.forEach(elt => {
+    txt = txt.replace(elt[0], elt[1])
+  })
+  admos.forEach(elt => {
     txt = txt.replace(elt[0], elt[1])
   })
   return txt;
