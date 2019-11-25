@@ -371,8 +371,10 @@ body:not([action=login]) #login {
 }
 
 
-#content img {
+#content img, #content svg {
     max-width: 100%;
+    display: block;
+    margin: auto;
 }
  
 #content pre {
