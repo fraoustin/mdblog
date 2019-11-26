@@ -99,31 +99,13 @@ function transformAdmonition(admo, txt, results) {
   return results
 }
 
-function transformGraphviz(txt) {
-  var results = [];
-  var arrMatch = null;
-  var rePattern = new RegExp("(```graphviz\n([^```])*```\n)", "g");
-  txt = txt.replace(rePattern, function(match, g1, g2, index){
-    code = match.replace('```graphviz\n','').replace('```','')
-    if (code.indexOf("digraph") == -1) {
-      code = graphviz_head + code + graphviz_foot; 
-    }
-    results.push([marked(match), Viz(code, {'format':'svg'})])
-    return match;
-  })
-  return results
-}
 
 function mdToHtml(txt){
-  //graphvizs = transformGraphviz(txt); 
   admos = transformAdmonition("note", txt, [])
   admos = transformAdmonition("info", txt, admos)
   admos = transformAdmonition("error", txt, admos)
   admos = transformAdmonition("warning", txt, admos)
   txt = marked(txt)
-  //graphvizs.forEach(elt => {
-  //  txt = txt.replace(elt[0], elt[1])
-  //})
   admos.forEach(elt => {
     txt = txt.replace(elt[0], elt[1])
   })
