@@ -142,7 +142,7 @@ li.nostyle {
     list-style-type: none; 
 }
 
-pre {
+pre:not(> .language-graphviz) {
     border-left: 2px solid #ccc;
     margin: 10px;
     padding: 0px 10px;
@@ -419,4 +419,8 @@ body:not([action=login]) #login {
         right: unset;
         left: 10px;
     }
+}
+
+.language-graphviz {
+    display:none;
 }

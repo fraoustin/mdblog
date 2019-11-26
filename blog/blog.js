@@ -115,15 +115,15 @@ function transformGraphviz(txt) {
 }
 
 function mdToHtml(txt){
-  graphvizs = transformGraphviz(txt); 
+  //graphvizs = transformGraphviz(txt); 
   admos = transformAdmonition("note", txt, [])
   admos = transformAdmonition("info", txt, admos)
   admos = transformAdmonition("error", txt, admos)
   admos = transformAdmonition("warning", txt, admos)
   txt = marked(txt)
-  graphvizs.forEach(elt => {
-    txt = txt.replace(elt[0], elt[1])
-  })
+  //graphvizs.forEach(elt => {
+  //  txt = txt.replace(elt[0], elt[1])
+  //})
   admos.forEach(elt => {
     txt = txt.replace(elt[0], elt[1])
   })
@@ -508,6 +508,20 @@ passwordText.addEventListener("keydown", function (e) {
   };
 });
 
-
+if (document.querySelectorAll('code.language-graphviz').length > 0) {
+  var script = document.createElement("script")
+  script.src = '/blog/viz.js'
+  script.onload = function(){
+    Array.from(document.querySelectorAll('code.language-graphviz')).forEach(elt => {
+      var code = elt.innerText;
+      if (code.indexOf("digraph") == -1) {
+        code = graphviz_head + code + graphviz_foot; 
+      }
+      img= Viz(code, {'format':'png-image-element'})
+      elt.parentNode.appendChild(img);
+    });
+  }
+  document.head.appendChild(script)
+}
 
 console.timeEnd("global");
