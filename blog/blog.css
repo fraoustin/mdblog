@@ -155,7 +155,7 @@ pre:not(> .language-graphviz) {
   padding: 0px 10px;
 }
 
-.warning code {
+.warning {
   color: #FF9800 !important;
 }
 
@@ -179,7 +179,9 @@ pre:not(> .language-graphviz) {
    padding: 0px 10px;
 }
 
-
+.error {
+    color: #F44336 !important;
+}
 
 .reading {
     text-align: right;
