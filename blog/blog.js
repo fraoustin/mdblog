@@ -92,7 +92,7 @@ function transformAdmonition(admo, txt, results) {
   var arrMatch = null;
   var rePattern = new RegExp("(```"+admo+"\n([^```])*```\n)", "g");
   txt = txt.replace(rePattern, function(match, g1, g2, index){
-    code = match.replace('```"+admo+"','').replace('```','')
+    code = match.replace('```'+admo+'\n','').replace('```','')
     results.push([marked(match), "<div class='"+admo+"'>"+marked(code)+"</div>"])
     return match;
   })
