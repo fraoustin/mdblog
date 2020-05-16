@@ -84,6 +84,16 @@ You can use in your text (write with markdown)
     }
     ```
 ```
+- mermaid
+```
+    ```mermaid
+    sequenceDiagram
+        Alice->>+John: Hello John, how are you?
+        Alice->>+John: John, can you hear me?
+        John-->>-Alice: Hi Alice, I can hear you!
+        John-->>-Alice: I feel great!
+    ```
+```
 
 You can search post by year with *year:XXXX* in search input.
 
@@ -134,6 +144,8 @@ run image mytodotxt
 - icon from https://feathericons.com/
 - marked https://github.com/markedjs/marked
 - editor https://github.com/lepture/editor
+- mermaid from https://mermaid-js.github.io/
+- viz from http://viz-js.com/
 
 ## Feature
 
