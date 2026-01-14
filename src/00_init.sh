@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ ! -z "$DAVUSER" ]; then
-    addauth $DAVUSER $DAVPASSWORD
-fi    
-
 if [ ! -f /share/_header.md ]; then
     cp /theme/blog/_header.md /share/_header.md
 fi

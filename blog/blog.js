@@ -1,12 +1,5 @@
 console.log("blog");
 console.time("global");
-var templateBlog = `# Title
-
-![tag](Name Of Tag)
-![category](Name Of Category)
-
-Your text
-`;
 
 var graphviz_head = `
 digraph G {
@@ -84,10 +77,6 @@ function readFile(fs, path, is404=""){
   }
 }
 
-function writeFile(fs, path, txt){
-  fs.file(path).write(txt)
-}
-
 function transformAdmonition(admo, txt, results) {
   var arrMatch = null;
   var rePattern = new RegExp("(```"+admo+"\n([^```])*```\n)", "g");
@@ -128,11 +117,6 @@ function loadMd(fs, path){
   console.timeEnd('loadMd');
 }
 
-function loadMdEditor(fs, path){
-  console.time('loadMdEditor');
-  document.querySelectorAll("#editor textarea")[0].value = readFile(fs, path, templateBlog);
-  console.timeEnd('loadMdEditor');
-}
 
 function loadMdExtract(fs, path, id, link, size=300, search=''){
   console.time('loadMdExtract');
@@ -198,41 +182,18 @@ function setSpecDiv(fs, name, id=''){
 function setHeader(fs){
   console.time('setHeader');
   pathHeader = setSpecDiv(fs, 'header');
-  if (pathHeader.length == 0) {
-    pathHeader = '_header'
-  } else {
-    pathHeader = pathHeader.substring(0,pathHeader.length-3);
-  }
-  document.getElementById('header.md').href = urlEdit + '?' + encodeData({'md':pathHeader, 'action':'edit'});
-  var t = document.getElementById('header').getElementsByTagName('h1')
-  if (t.length > 0) {
-    document.title = t[0].innerText;
-    t[0].innerHTML = "<a href='"+ url +"' class='title'>"+ t[0].innerHTML +"</a></div>";
-  }
   console.timeEnd('setHeader');
 }
 
 function setFooter(fs){
   console.time('setFooter');
   pathFooter = setSpecDiv(fs, 'footer');
-  if (pathFooter.length == 0) {
-    pathFooter = '_footer'
-  } else {
-    pathFooter = pathFooter.substring(0,pathFooter.length-3);
-  }
-  document.getElementById('footer.md').href = urlEdit + '?' + encodeData({'md':pathFooter, 'action':'edit'});
   console.timeEnd('setFooter');
 }
 
 function setSideBar(fs){
   console.time('setSideBar');
   pathBar = setSpecDiv(fs, 'sidebar', 'personnal-shortcut');
-  if (pathBar.length == 0) {
-    pathBar = '_sidebar'
-  } else {
-    pathBar = pathBar.substring(0,pathBar.length-3);
-  }
-  document.getElementById('sidebar.md').href = urlEdit + '?' + encodeData({'md':pathBar, 'action':'edit'});
   console.timeEnd('setSideBar')
 }
 
@@ -245,87 +206,6 @@ function hasChild(parent, child, add){
   })
 }
 
-function getUrlEdit(mode, url){
-  if (mode == "view") {
-    return  window.location.protocol + '//' + window.location.host + '/edit' +  window.location.pathname; 
-  } else {
-    return url;
-  }
-}
-
-function getUrlView(mode, url){
-  if (mode == 'view') {
-    return url;
-  } else {
-    //todo
-    return url.replace('/edit/', '/'); 
-  }
-}
-
-function setLogOut(url){
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", url.replace(/:\/\//, '://log:out@'), true);
-  xmlhttp.send();
-}
-
-function setLogIn(urlright, urlwrong, user, password){
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", urlright.replace(/:\/\//, '://'+user+':'+password+'@'), true);
-  xmlhttp.onreadystatechange=function() 
-  {
-    if(xmlhttp.readyState==4){
-      if (xmlhttp.status == 200) {
-        window.location.href = urlright;
-      } else {
-        window.location.href = urlwrong;
-      }
-    }
-  }
-  xmlhttp.send();
-}
-
-
-function editCancel(){
-  if (document.querySelectorAll('#original_fancyindex #list a[title="'+path+'"]').length > 0) {
-    if (mdfile.endsWith('_header') == true || mdfile.endsWith('_footer') == true || mdfile.endsWith('_sidebar') == true){
-      mdfile = ''
-    }
-    window.location.href = urlEdit + '?' + encodeData({'md':mdfile});
-  } else {
-    window.location.href = urlEdit;
-  }
-}
-
-function editSave(){
-  console.time("editSave");
-  writeFile(fs, path, editor.codemirror.getValue());
-  console.timeEnd("editSave");
-}
-
-function editSaveAndClose(){
-  editSave();
-  editCancel();
-}
-
-function editSaveOnly(){
-  editSave();
-}
-
-
-function editUpload(){
-  document.getElementById("nameFile").click();
-}
-
-function upload(){
-  var url = window.location.protocol + '//' + window.location.host+window.location.pathname;
-  var fs = new WebDAV.Fs(url);
-  var reader = new FileReader();
-  reader.onload = function(event) {
-    fs.file("./upload/" + document.getElementById("nameFile").files.item(0).name).write(event.target.result);
-    alert("Upload terminated");
-  };
-  reader.readAsArrayBuffer(document.getElementById("nameFile").files[0]);
-}
 
 /* load page */
 var params = params(),
@@ -336,18 +216,10 @@ var params = params(),
 var url = window.location.protocol + '//' + window.location.host+window.location.pathname;
 console.log(window.location.host)
 var fs = new WebDAV.Fs(url);
-var mode = "edit";
-if (url.indexOf("/edit/") == -1) {
-  mode = "view";
-};
-var urlView = getUrlView(mode, url);
-var urlEdit = getUrlEdit(mode, url);
-
+var mode = "view";
 
 console.log('globale variable');
 console.log('url     :', url);
-console.log('urlView :', urlView);
-console.log('urlEdit :', urlEdit);
 console.log('path    :', path)
 console.log('mdfile  :', mdfile);
 console.log('mode    :', mode);
@@ -357,53 +229,11 @@ console.log('fs      :', fs);
 document.body.setAttribute('mode', mode);
 document.body.setAttribute('action', action);
 
-if (mode == 'edit' || mode == 'view') {
-  setHeader(fs);
-  setFooter(fs);
-  if (action != 'edit') {
-    setSideBar(fs);
-    if (action != 'menu' && mdfile.length > 0) {
-      loadMd(fs, path);
-    }
-  } else {
-    var editor = null;
-    var styleSheet = document.createElement("link")
-    styleSheet.rel = "stylesheet"
-    styleSheet.href = '/blog/editor/editor.css'
-    document.head.appendChild(styleSheet)
-    var script = document.createElement("script")
-    script.src = '/blog/editor/editor.js'
-    script.onload = function(){
-      loadMdEditor(fs, path);
-      editor = new Editor({toolbar : [
-        {name: 'cross', action: editCancel},
-        {name: 'floppy-disk', action: editSaveAndClose},
-        {name: 'download', action: editSaveOnly},
-        '|',
-        {name: 'space', action: null},
-        '|',
-        {name: 'bold', action: Editor.toggleBold},
-        {name: 'italic', action: Editor.toggleItalic},
-        {name: 'code', action: Editor.toggleCodeBlock},
-        '|',
-        {name: 'quote', action: Editor.toggleBlockquote},
-        {name: 'unordered-list', action: Editor.toggleUnOrderedList},
-        {name: 'ordered-list', action: Editor.toggleOrderedList},
-        '|',
-        {name: 'link', action: Editor.drawLink},
-        {name: 'image', action: Editor.drawImage},
-        {name: 'cloud-upload', action: editUpload}
-      ]});
-      editor.render();
-      body = document.body,
-      html = document.documentElement;
-      // change size of editor for full
-      var height = Math.max( body.scrollHeight, body.offsetHeight, 
-                          html.clientHeight, html.scrollHeight, html.offsetHeight );
-      document.getElementsByClassName("CodeMirror")[0].style.height = (height-110) + 'px';
-    }
-    document.head.appendChild(script)
-  }
+setHeader(fs);
+setFooter(fs);
+setSideBar(fs);
+if (action != 'menu' && mdfile.length > 0) {
+    loadMd(fs, path);
 }
 
 // manage no-style of list with checkbox
@@ -414,33 +244,9 @@ hasChild("pre", "code.language-error", "error");
 hasChild("pre", "code.language-warning", "warning");
 hasChild("pre", "code.language-note", "note");
 
-// manage link
-document.getElementById("login-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'login'});
-document.getElementById("logout-btn").href = urlView + '?' + encodeData({'md':mdfile, 'action':'logout'})
-document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':mdfile, 'action':'edit'})
-
-if ( action == 'menu'){
-  document.getElementById("menu-btn").href = url + '?' + encodeData({'md':mdfile})
-} else {
-  document.getElementById("menu-btn").href = url + '?' + encodeData({'md':mdfile, 'action':'menu'})
-}
-
-
-if (mode == "edit" && mdfile == ""){
-  document.getElementById("edit-btn").classList.remove("icon-pencil");
-  document.getElementById("edit-btn").classList.add("icon-file-text");
-  dt = new Date();
-  document.getElementById("edit-btn").href = urlEdit + '?' + encodeData({'md':toIsoDate(), 'action':'edit'})
-}
-
-// manage action
-if (action == 'logout') {
-  setLogOut(urlEdit);
-}
-
-if (mdfile.length == 0 && action != 'login'){
+if (mdfile.length == 0){
   var cnt = 0
-  if (action != 'edit' && action != 'menu' && action != 'search'){
+  if (action != 'search'){
     Array.from(document.querySelectorAll('#original_fancyindex #list a')).reverse().forEach(elt => {
       if ( elt.title.startsWith("_") == false && elt.title.endsWith('.md') == true && cnt < 10) {
         loadMdExtract(fs, elt.title, elt.title, url + '?' + encodeData({'md': elt.title.substring(0,elt.title.length-3)}));
@@ -472,20 +278,6 @@ searchText.addEventListener("keydown", function (e) {
       window.location.href = url + '?' + encodeData({'action':'search', 'search': document.getElementById('searchText').value });
     } else {
       window.location.href = url;
-    }
-  };
-});
-
-// manage login
-if (action == 'login') {
-  document.getElementById('userText').focus();
-}
-
-var passwordText = document.getElementById("passwordText");
-passwordText.addEventListener("keydown", function (e) {
-  if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
-    if ( document.getElementById('passwordText').value.length > 0 && document.getElementById('userText').value.length > 0) {
-      setLogIn(urlEdit + '?' + encodeData({'md': mdfile}), url, document.getElementById('userText').value, document.getElementById('passwordText').value);
     }
   };
 });
