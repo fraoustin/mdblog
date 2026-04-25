@@ -339,3 +339,13 @@ input, input:focus, input:-webkit-autofill {
 .language-graphviz {
     display:none;
 }
+
+
+/* manage title with link */
+h1 a,
+h1 a:visited,
+h1 a:hover,
+h1 a:active {
+  text-decoration: none;
+  color: inherit;
+}
