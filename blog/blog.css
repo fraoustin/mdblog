@@ -344,6 +344,10 @@ input, input:focus, input:-webkit-autofill {
     display: none;
 }
 
+blockquote p {
+  white-space: pre;
+}
+
 /* manage title with link */
 h1 a,
 h1 a:visited,
