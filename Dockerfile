@@ -1,8 +1,8 @@
-FROM nginx:1.17
-LABEL maintainer "fraoustin@gmail.com"
+FROM nginx:1.22
+LABEL maintainer="fraoustin@gmail.com"
 
-ENV SET_CONTAINER_TIMEZONE false 
-ENV CONTAINER_TIMEZONE "" 
+ENV SET_CONTAINER_TIMEZONE=false 
+ENV CONTAINER_TIMEZONE="" 
 
 # manage user www-data
 RUN usermod -u 1000 www-data
@@ -18,18 +18,12 @@ RUN chmod +x -R /usr/share/docker-entrypoint.pre
 
 # install extra nginx
 RUN apt-get update && apt-get install -y \
-        apache2-utils \
+#        apache2-utils \
         nginx-extras \
     && rm -rf /var/lib/apt/lists/* 
 
 COPY ./src/default.conf /etc/nginx/conf.d/default.conf
 RUN rm /etc/nginx/sites-enabled/default
-
-# add cmd nginx
-COPY ./src/cmd/addauth.sh /usr/bin/addauth
-COPY ./src/cmd/rmauth.sh /usr/bin/rmauth
-RUN chmod +x /usr/bin/addauth
-RUN chmod +x /usr/bin/rmauth
 
 # add theme
 RUN mkdir /theme
@@ -39,9 +33,6 @@ COPY ./blog/ /theme/blog/
 
 RUN mkdir /share
 VOLUME /share
-
-ENV DAVUSER user
-ENV DAVPASSWORD pass
 
 EXPOSE 80
 

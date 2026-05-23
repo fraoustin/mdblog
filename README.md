@@ -8,8 +8,6 @@ write markdown file and view blog
 
 - SET_CONTAINER_TIMEZONE (false or true) manage time of container
 - CONTAINER_TIMEZONE timezone of container
-- DAVUSER (default user)
-- DAVPASSWORD (default pass)
 
 ## Volume
 
@@ -19,18 +17,12 @@ write markdown file and view blog
 
 - 80 
 
-## Command
-
-- addauth : add user for git
-- rmauth : remove user
 
 ## Usage direct
 
 run image fraoustin/blog-webdav
 
     docker run -d -v <localpath>:/share --name blog -p 80:80 fraoustin/mdblog
-
-user default is *user* and password default is *pass*
 
 you use http://localhost/ for access ihm
 
@@ -39,15 +31,15 @@ It is necessary to check authorization on localpath (read and write)
 You can use in your text (write with markdown)
 
 - add tag 
-```
+```markdown
     ![tag](name of tag)
 ```
 - add category  
-```
+```markdown
     ![category](name of category)
 ```
 - admonition
-```
+```markdown
     ```note|warning|error
     text
     ```
@@ -99,6 +91,22 @@ You can search post by year with *year:XXXX* in search input.
 
 You can search post by tag (or category) with *[tag](mytag)* in search input.
 
+You can add in header a file, a description
+
+```markdown
+---
+title: Mon document
+author: John
+tags:
+  - IA
+  - Markdown
+version: 1.0
+---
+
+# Mon document
+
+...
+```
 
 
 You can change
@@ -110,27 +118,8 @@ You can change
 
 ## Usage by Dockerfile
 
-Sample of Dockerfile
 
-    FROM fraoustin/mdblog
-    COPY ./00_init.sh /usr/share/docker-entrypoint.pre/00_init.sh
-    RUN chmod +x -R /usr/share/gitweb/docker-entrypoint.pre
-
-File 00_init.sh
-
-    #!/bin/bash
-    if [ ! -z "$DAVUSER" ]; then
-        addauth $DAVUSER $DAVPASSWORD
-    fi    
-
-
-build image myblog
-
-    docker build -t myblog .
-
-run image mytodotxt
-
-    docker run -d -e "CONTAINER_TIMEZONE=Europe/Paris" -e DAVUSER=myuser" -e "DAVPASSWORD=mypassword" -v <localpath>:/share --name test -p 80:80 myblog
+    docker run -d -e "CONTAINER_TIMEZONE=Europe/Paris" -v <localpath>:/share --name test -p 80:80 myblog
 
 ## For developer
 
@@ -140,7 +129,6 @@ run image mytodotxt
 
 ## External library
 
-- wedav.js on https://github.com/aslakhellesoy/webdavjs
 - icon from https://feathericons.com/
 - marked https://github.com/markedjs/marked
 - editor https://github.com/lepture/editor

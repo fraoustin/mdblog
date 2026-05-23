@@ -141,12 +141,19 @@ input[type=checkbox]:checked:before{
 li.nostyle {
     list-style-type: none; 
 }
-
+/*
 pre:not(> .language-graphviz) {
     border-left: 2px solid #ccc;
     margin: 10px;
     padding: 0px 10px;
 }
+*/
+pre {
+    border-left: 2px solid #ccc;
+    margin: 10px;
+    padding: 0px 10px;
+}
+
 
 
 .warning {
@@ -242,7 +249,7 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     font-style:normal
 }
 
-.icon-floppy-disk, .icon-cross, .icon-menu, .icon-download, .icon-search, .icon-cloud-upload, .icon-switch, .icon-pencil, .icon-file-text {
+.icon-search {
     font-family: icomoon2;
     speak: none;
     font-style: normal;
@@ -253,47 +260,7 @@ a.title, .btn, #personnal-shortcut a, #admin a {
     -webkit-font-smoothing: antialiased;
 }
 
-.icon-floppy-disk:before {
-    content: "\e962";
-}
-
-.icon-menu:before {
-    content: "\e9bd";
-}
-
-.icon-switch:before {
-    content: "\e9b6";
-}
-
-.icon-pencil:before {
-    content: "\e905";
-}
-
-.icon-file-text:before {
-    content: "\e922";
-}
-
-.icon-download:before {
-    content: "\e960";
-}
-
-.icon-cloud-upload:before {
-    content: "\e9c3";
-}
-
-
-.icon-cross:before {
-    content: "\ea0f";
-}
-
-.icon-space {
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
-    color: black;
-}
-
-input#searchText, input#userText, input#passwordText {
+input#searchText {
     font-family: Livvic;
     font-size: 16px;
     text-align: left;
@@ -309,10 +276,6 @@ input, input:focus, input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
 
-#form-login {
-    width: 300px;
-    margin: auto;
-}
 
 .space {
     height: 20px;
@@ -329,56 +292,6 @@ input, input:focus, input:-webkit-autofill {
     content: "\e986";
 }
 
-.icon-user:before {
-    font-family: 'icomoon2';
-    position: relative;
-    left: -5px;
-    content: "\e971";
-}
-
-
-.icon-password:before {
-    font-family: 'icomoon2';
-    position: relative;
-    left: -5px;
-    content: "\e98d";
-}
-
-
-
-/* manage mode and action */
-body[mode=view] #logout-btn,
-body[mode=view] #edit-btn,
-body[mode=edit] #login-btn,
-body:not([mode=edit]) #edit-btn,
-body[mode=edit][action=edit] #edit-btn,
-body[mode=view][action=edit] #content,
-body:not([action=edit]) #editor,
-body[action=edit] #footer,
-body[action=edit] #sidebar,
-body[action=edit] hr,
-body[action=edit] #header,
-body[action=edit] #logout-btn,
-#menu-btn,
-body:not([mode=edit]) #admin,
-body[mode=edit][action=edit] #menu-btn,
-body[action=login] #content,
-body[action=login] #logout-btn,
-body[action=login] #login-btn,
-body[action=login] #edit-btn
-{
-    display: none;
-}
-
-body[action=menu] #primary {
-    display: none;
-}
-body[action=menu] #sidebar {
-    width: 100%;
-}
-body:not([action=login]) #login {
-    display: none;
-}
 
 
 #content img, #content svg {
@@ -425,4 +338,17 @@ body:not([action=login]) #login {
 
 .language-graphviz {
     display:none;
+}
+
+.frontmatter {
+    display: none;
+}
+
+/* manage title with link */
+h1 a,
+h1 a:visited,
+h1 a:hover,
+h1 a:active {
+  text-decoration: none;
+  color: inherit;
 }
