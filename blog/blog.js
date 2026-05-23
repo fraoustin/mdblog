@@ -318,7 +318,7 @@ if (document.querySelectorAll('code.language-mermaid').length > 0) {
 document.addEventListener("DOMContentLoaded", () => {
 
     const containers = document.querySelectorAll(
-        "#primary, #primary.extract"
+        "#primary, #primary .extract"
     );
 
     containers.forEach(container => {
