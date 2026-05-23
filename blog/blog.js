@@ -315,4 +315,37 @@ if (document.querySelectorAll('code.language-mermaid').length > 0) {
   document.head.appendChild(script)
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    const containers = document.querySelectorAll(
+        "#primary, #primary.extract"
+    );
+
+    containers.forEach(container => {
+
+        const children = [...container.children];
+
+        if (children[0]?.tagName === "HR") {
+
+            let inside = true;
+
+            for (const el of children) {
+
+                if (inside) {
+                    el.classList.add("frontmatter");
+                }
+
+                if (
+                    el.tagName === "HR" &&
+                    el !== children[0]
+                ) {
+                    inside = false;
+                }
+            }
+        }
+
+    });
+
+});
+
 console.timeEnd("global");

@@ -31,15 +31,15 @@ It is necessary to check authorization on localpath (read and write)
 You can use in your text (write with markdown)
 
 - add tag 
-```
+```markdown
     ![tag](name of tag)
 ```
 - add category  
-```
+```markdown
     ![category](name of category)
 ```
 - admonition
-```
+```markdown
     ```note|warning|error
     text
     ```
@@ -91,6 +91,22 @@ You can search post by year with *year:XXXX* in search input.
 
 You can search post by tag (or category) with *[tag](mytag)* in search input.
 
+You can add in header a file, a description
+
+```markdown
+---
+title: Mon document
+author: John
+tags:
+  - IA
+  - Markdown
+version: 1.0
+---
+
+# Mon document
+
+...
+```
 
 
 You can change

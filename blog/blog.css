@@ -340,6 +340,9 @@ input, input:focus, input:-webkit-autofill {
     display:none;
 }
 
+.frontmatter {
+    display: none;
+}
 
 /* manage title with link */
 h1 a,
